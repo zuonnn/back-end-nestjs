@@ -33,6 +33,7 @@ CREATE TABLE "Product" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
+    "stock" INTEGER NOT NULL,
     "brandId" INTEGER NOT NULL,
     "categoryId" INTEGER NOT NULL,
     "typeId" INTEGER NOT NULL,

@@ -9,7 +9,7 @@ export class TypesController {
 
   @Post()
   create(@Body() createTypeDto: CreateTypeDto) {
-    return this.typesService.create(createTypeDto);
+    return this.typesService.createType(createTypeDto);
   }
 
   @Get()

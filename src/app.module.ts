@@ -12,6 +12,9 @@ import { TypesModule } from './types/types.module';
 import * as Joi from '@hapi/joi';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { UsersModule } from './users/users.module';
+import { CartsService } from './carts/carts.service';
+import { CartsModule } from './carts/carts.module';
+import { CheckoutsModule } from './checkouts/checkouts.module';
 
 @Module({
   imports: [
@@ -38,8 +41,10 @@ import { UsersModule } from './users/users.module';
       limit: 10,
     }]),
     UsersModule,
+    CartsModule,
+    CheckoutsModule,
   ],
   controllers: [],
-  providers: [PrismaService],
+  providers: [PrismaService, CartsService],
 })
 export class AppModule { }

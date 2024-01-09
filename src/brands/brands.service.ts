@@ -7,7 +7,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class BrandsService {
   constructor(private readonly prismaService: PrismaService) {}
   
-  async create(createBrandDto: CreateBrandDto) {
+  async createBrand(createBrandDto: CreateBrandDto) {
     return this.prismaService.brand.create({data: createBrandDto});
   }
 

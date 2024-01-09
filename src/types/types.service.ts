@@ -7,7 +7,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class TypesService {
   constructor(private readonly prismaService: PrismaService) {}
   
-  async create(createTypeDto: CreateTypeDto) {
+  async createType(createTypeDto: CreateTypeDto) {
     return this.prismaService.type.create({data: createTypeDto});
   }
 

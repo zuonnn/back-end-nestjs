@@ -9,7 +9,7 @@ export class BrandsController {
 
   @Post()
   create(@Body() createBrandDto: CreateBrandDto) {
-    return this.brandsService.create(createBrandDto);
+    return this.brandsService.createBrand(createBrandDto);
   }
 
   @Get()
