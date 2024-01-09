@@ -1,9 +1,6 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
-import { UserModule } from './user/user.module';
 import { BrandsModule } from './brands/brands.module';
 import { CategoriesModule } from './categories/categories.module';
 import { OrdersModule } from './orders/orders.module';
@@ -13,6 +10,8 @@ import { PrismaService } from './prisma/prisma.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { TypesModule } from './types/types.module';
 import * as Joi from '@hapi/joi';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -27,7 +26,6 @@ import * as Joi from '@hapi/joi';
       }),
     }),
     DatabaseModule,
-    UserModule,
     BrandsModule,
     CategoriesModule,
     OrdersModule,
@@ -35,8 +33,13 @@ import * as Joi from '@hapi/joi';
     ProductsModule,
     PrismaModule,
     TypesModule,
+    ThrottlerModule.forRoot([{
+      ttl: 60000,
+      limit: 10,
+    }]),
+    UsersModule,
   ],
-  controllers: [AppController],
-  providers: [AppService, PrismaService],
+  controllers: [],
+  providers: [PrismaService],
 })
-export class AppModule {}
+export class AppModule { }

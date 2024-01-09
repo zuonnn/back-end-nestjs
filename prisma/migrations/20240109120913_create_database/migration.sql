@@ -1,11 +1,12 @@
 -- CreateEnum
-CREATE TYPE "Role" AS ENUM ('ADMIN', 'CUSTOMER', 'GUEST', 'SELLER', 'MANAGER_SALE', 'MANAGER_INVENTORY');
+CREATE TYPE "Role" AS ENUM ('admin', 'customer', 'guest', 'seller', 'manager_sale', 'manager_inventory');
 
 -- CreateTable
 CREATE TABLE "Brand" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
+    "country" TEXT NOT NULL,
 
     CONSTRAINT "Brand_pkey" PRIMARY KEY ("id")
 );
@@ -20,12 +21,21 @@ CREATE TABLE "Category" (
 );
 
 -- CreateTable
+CREATE TABLE "Type" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "Type_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Product" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
     "brandId" INTEGER NOT NULL,
     "categoryId" INTEGER NOT NULL,
+    "typeId" INTEGER NOT NULL,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
 );
@@ -57,7 +67,7 @@ CREATE TABLE "User" (
     "password" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "dob" TIMESTAMP(3) NOT NULL,
-    "role" "Role" NOT NULL DEFAULT 'CUSTOMER',
+    "role" "Role" NOT NULL DEFAULT 'customer',
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -73,6 +83,9 @@ ALTER TABLE "Product" ADD CONSTRAINT "Product_brandId_fkey" FOREIGN KEY ("brandI
 
 -- AddForeignKey
 ALTER TABLE "Product" ADD CONSTRAINT "Product_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Product" ADD CONSTRAINT "Product_typeId_fkey" FOREIGN KEY ("typeId") REFERENCES "Type"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "OrderDetail" ADD CONSTRAINT "OrderDetail_orderId_fkey" FOREIGN KEY ("orderId") REFERENCES "Order"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

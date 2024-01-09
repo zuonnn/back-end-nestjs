@@ -1,26 +1,43 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTypeDto } from './dto/create-type.dto';
 import { UpdateTypeDto } from './dto/update-type.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class TypesService {
-  create(createTypeDto: CreateTypeDto) {
-    return 'This action adds a new type';
+  constructor(private readonly prismaService: PrismaService) {}
+  
+  async create(createTypeDto: CreateTypeDto) {
+    return this.prismaService.type.create({data: createTypeDto});
   }
 
-  findAll() {
-    return `This action returns all types`;
+  async getTypes() {
+    return this.prismaService.type.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} type`;
+  async getTypeById(id: number) {
+    const type = await this.prismaService.type.findUnique({where: {id}});
+    if (!type) {
+      throw new Error('Type not found');
+    }
+    return type;
   }
 
-  update(id: number, updateTypeDto: UpdateTypeDto) {
-    return `This action updates a #${id} type`;
+  async updateType(id: number, updateTypeDto: UpdateTypeDto) {
+    try {
+      return await this.prismaService.type.update(
+        {where: {id}, data: updateTypeDto}
+      );
+    } catch (error) {
+      throw error;
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} type`;
+  async deleteType(id: number) {
+    try {
+      return this.prismaService.type.delete({where: {id}});
+    } catch (error) {
+      throw error;
+    }
   }
 }

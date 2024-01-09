@@ -65,15 +65,15 @@ model User {
   password String
   name     String
   dob      DateTime
-  role     Role     @default(CUSTOMER)
+  role     Role     @default(customer)
   orders   Order[]
 }
 
 enum Role {
-  ADMIN
-  CUSTOMER
-  GUEST
-  SELLER
-  MANAGER_SALE
-  MANAGER_INVENTORY
+  admin
+  customer
+  guest
+  seller
+  manager_sale
+  manager_inventory
 }
