@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Brand {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String
+  country     String
+  products    Product[]
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String
+  products    Product[]
+}
+
+model Type {
+  id          Int       @id @default(autoincrement())
+  name        String
+  products    Product[]
+}
+
+model Product {
+  id           Int           @id @default(autoincrement())
+  name         String
+  price        Float
+  brandId      Int
+  brand        Brand         @relation(fields: [brandId], references: [id])
+  categoryId   Int
+  category     Category      @relation(fields: [categoryId], references: [id])
+  OrderDetails OrderDetail[]
+  typeId       Int
+  type         Type          @relation(fields: [typeId], references: [id])
+}
+
+model OrderDetail {
+  id        Int     @id @default(autoincrement())
+  orderId   Int
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model Order {
+  id           Int           @id @default(autoincrement())
+  customerName String
+  orderDate    DateTime
+  userId       Int
+  user         User          @relation(fields: [userId], references: [id])
+  orderDetails OrderDetail[]
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
+  phone    String   @unique
+  password String
+  name     String
+  dob      DateTime
+  role     Role     @default(CUSTOMER)
+  orders   Order[]
+}
+
+enum Role {
+  ADMIN
+  CUSTOMER
+  GUEST
+  SELLER
+  MANAGER_SALE
+  MANAGER_INVENTORY
+}
