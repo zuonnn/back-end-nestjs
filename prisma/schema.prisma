@@ -23,23 +23,26 @@ model Category {
 }
 
 model Type {
-  id          Int       @id @default(autoincrement())
-  name        String
-  products    Product[]
+  id       Int       @id @default(autoincrement())
+  name     String
+  products Product[]
 }
 
 model Product {
-  id           Int           @id @default(autoincrement())
-  name         String
-  price        Float
-  stock        Int
-  brandId      Int
-  brand        Brand         @relation(fields: [brandId], references: [id])
-  categoryId   Int
-  category     Category      @relation(fields: [categoryId], references: [id])
-  OrderDetails OrderDetail[]
-  typeId       Int
-  type         Type          @relation(fields: [typeId], references: [id])
+  id             Int           @id @default(autoincrement())
+  name           String
+  costPrice      Float
+  retailPrice    Float
+  wholeSalePrice Float
+  stock          Int
+  image          String
+  brandId        Int
+  brand          Brand         @relation(fields: [brandId], references: [id])
+  categoryId     Int
+  category       Category      @relation(fields: [categoryId], references: [id])
+  OrderDetails   OrderDetail[]
+  typeId         Int
+  type           Type          @relation(fields: [typeId], references: [id])
 }
 
 model OrderDetail {
@@ -75,6 +78,6 @@ enum Role {
   customer
   guest
   seller
-  manager_sale
+  accountant
   manager_inventory
 }

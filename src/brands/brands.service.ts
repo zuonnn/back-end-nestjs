@@ -2,16 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { UpdateBrandDto } from './dto/update-brand.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Brand } from '@prisma/client';
 
 @Injectable()
 export class BrandsService {
+  static getBrands() {
+    throw new Error('Method not implemented.');
+  }
   constructor(private readonly prismaService: PrismaService) {}
   
   async createBrand(createBrandDto: CreateBrandDto) {
     return this.prismaService.brand.create({data: createBrandDto});
   }
 
-  async getBrands() {
+  async getBrands() : Promise<Brand[]> {
     return this.prismaService.brand.findMany();
   }
 

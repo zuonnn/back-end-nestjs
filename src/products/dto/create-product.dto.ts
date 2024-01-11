@@ -7,11 +7,23 @@ export class CreateProductDto {
 
   @IsNotEmpty()
   @IsNumber()
-  price: number;
+  costPrice: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  retailPrice: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  wholeSalePrice: number;
 
   @IsNotEmpty()
   @IsNumber()
   stock: number;
+
+  @IsNotEmpty()
+  @IsString()
+  image: string;
 
   @IsNotEmpty()
   @IsNumber()

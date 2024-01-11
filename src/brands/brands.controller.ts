@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common'
 import { BrandsService } from './brands.service';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { UpdateBrandDto } from './dto/update-brand.dto';
+import { Brand } from '@prisma/client';
 
 @Controller('brands')
 export class BrandsController {
@@ -13,12 +14,12 @@ export class BrandsController {
   }
 
   @Get()
-  findAll() {
+  findAll() : Promise<Brand[]>{
     return this.brandsService.getBrands();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string) : Promise<Brand> {
     return this.brandsService.getBrandById(+id);
   }
 

@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "Role" AS ENUM ('admin', 'customer', 'guest', 'seller', 'manager_sale', 'manager_inventory');
+CREATE TYPE "Role" AS ENUM ('admin', 'customer', 'guest', 'seller', 'accountant', 'manager_inventory');
 
 -- CreateTable
 CREATE TABLE "Brand" (
@@ -32,8 +32,11 @@ CREATE TABLE "Type" (
 CREATE TABLE "Product" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "price" DOUBLE PRECISION NOT NULL,
+    "costPrice" DOUBLE PRECISION NOT NULL,
+    "retailPrice" DOUBLE PRECISION NOT NULL,
+    "wholeSalePrice" DOUBLE PRECISION NOT NULL,
     "stock" INTEGER NOT NULL,
+    "image" TEXT NOT NULL,
     "brandId" INTEGER NOT NULL,
     "categoryId" INTEGER NOT NULL,
     "typeId" INTEGER NOT NULL,
