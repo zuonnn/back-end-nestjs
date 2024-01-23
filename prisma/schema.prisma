@@ -62,20 +62,31 @@ model Order {
   orderDetails OrderDetail[]
 }
 
+model Message {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  user      User    @relation(fields: [userId], references: [id])
+  message   String
+  createdAt DateTime @default(now())
+}
+
 model User {
-  id       Int      @id @default(autoincrement())
-  email    String   @unique
-  phone    String   @unique
-  password String
-  name     String
-  dob      DateTime
-  role     Role     @default(customer)
-  orders   Order[]
+  id               Int       @id @default(autoincrement())
+  email            String    @unique
+  phone            String    @unique
+  password         String
+  name             String
+  dob              DateTime
+  isEmailConfirmed Boolean   @default(false)
+  role             Role      @default(customer)
+  orders           Order[]
+  messages         Message[]
 }
 
 enum Role {
   admin
   customer
+  customer_care
   guest
   seller
   accountant
